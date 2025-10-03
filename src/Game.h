@@ -24,7 +24,7 @@ class Game
   {
 	  MENU,
 	  GAMEPLAY,
-	  GAMEND
+	  GAMEEND
   }; 
   GameState state = MENU;
 
