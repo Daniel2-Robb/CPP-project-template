@@ -42,6 +42,17 @@ int main()
         window.close();
     }
 
+    if (event.type == sf::Event::KeyPressed ||
+        event.type == sf::Event::KeyReleased)
+    {
+        game.keyPressed(event);
+    }
+
+    if (event.type == sf::Event::MouseButtonPressed)
+    {
+        game.mouseClicked(event);
+    }
+
 
     //'update' element of the game loop
     game.update(dt);

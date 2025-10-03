@@ -2,6 +2,7 @@
 #define PLATFORMER_GAMEOBJECT_H
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class GameObject
 {
@@ -9,6 +10,12 @@ public:
 	GameObject();
 	~GameObject();
 	void init();
+	bool initialiseSprite(sf::Texture& texture, std::string filename);
+	sf::Sprite* getSprite();
+	sf::Sprite* sprite = nullptr;
+
+private:
+	
 
 };
 

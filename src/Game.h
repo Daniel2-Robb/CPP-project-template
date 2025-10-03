@@ -3,6 +3,8 @@
 #define PLATFORMER_GAME_H
 
 #include <SFML/Graphics.hpp>
+#include "GameObject.h"
+#include "Flavour/Menu.h"
 
 class Game
 {
@@ -27,6 +29,13 @@ class Game
 	  GAMEEND
   }; 
   GameState state = MENU;
+
+  GameObject background;
+  sf::Texture background_texture;
+  GameObject mole;
+  sf::Texture mole_texture;
+
+  Menu menu;
 
 };
 
