@@ -20,6 +20,14 @@ class Game
   sf::Sprite ball;
   sf::Texture ball_texture;
 
+  enum GameState
+  {
+	  MENU,
+	  GAMEPLAY,
+	  GAMEND
+  }; 
+  GameState state = MENU;
+
 };
 
 #endif // PLATFORMER_GAME_H

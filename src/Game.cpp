@@ -15,6 +15,7 @@ Game::~Game()
 
 bool Game::init()
 {
+	state = GAMEPLAY;
 
   return true;
 }
