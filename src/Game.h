@@ -25,6 +25,7 @@ class Game
   enum GameState
   {
 	  MENU,
+	  OPTIONS,
 	  GAMEPLAY,
 	  GAMEEND
   }; 

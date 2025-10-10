@@ -15,9 +15,9 @@ Game::~Game()
 
 bool Game::init()
 {
-	state = GAMEPLAY;
+	state = MENU;
 
-	menu.init();
+	menu.init(window);
 	
 	//initialise background
 	background.initialiseSprite(background_texture, "../Data/WhackaMole Worksheet/background.png");
@@ -36,7 +36,7 @@ void Game::update(float dt)
 	switch (state)
 	{
 	case MENU:
-
+		menu.update();
 		break;
 
 	case GAMEPLAY:
@@ -57,7 +57,7 @@ void Game::render()
 	switch (state)
 	{
 	case MENU:
-
+		menu.render(window);
 		break;
 
 	case GAMEPLAY:
@@ -110,7 +110,26 @@ void Game::keyPressed(sf::Event event)
 	{
 	case MENU:
 
-		state = GAMEPLAY;
+		if (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Down)
+		{
+			std::cout << "Choice changed \n";
+			
+		}
+		else
+		{
+			if (menu.choice == Menu::START)
+			{
+				state = GAMEPLAY;
+			}
+			else if (menu.choice == Menu::OPTIONS)
+			{
+				state = OPTIONS;
+			}
+			else if (menu.choice == Menu::EXIT)
+			{
+				window.close();
+			}
+		}
 
 		break;
 
