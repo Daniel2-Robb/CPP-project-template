@@ -33,8 +33,10 @@ class Game
 
   GameObject background;
   sf::Texture background_texture;
-  GameObject mole;
-  sf::Texture mole_texture;
+  GameObject character;
+  sf::Texture* characters = new sf::Texture[3];
+  GameObject passport;
+  sf::Texture* passports = new sf::Texture[3];
 
   Menu menu;
 

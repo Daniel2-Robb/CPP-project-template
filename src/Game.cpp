@@ -18,15 +18,16 @@ bool Game::init()
 	state = MENU;
 
 	menu.init(window);
-	
+
+			
 	//initialise background
 	background.initialiseSprite(background_texture, "../Data/WhackaMole Worksheet/background.png");
 	//std::cout << "background texture loaded\n";
 
 	//initialise actors
-	mole.initialiseSprite(mole_texture, "../Data/WhackaMole Worksheet/Mouse_Right.png");
+	character.initialiseSprite(character_texture, "../Data/WhackaMole Worksheet/Mouse_Right.png");
 	//std::cout << "mole texture loaded\n";
-	mole.getSprite()->setScale(0.75f, 0.75f);
+	character.getSprite()->setScale(0.75f, 0.75f);
 
   return true;
 }
@@ -62,7 +63,7 @@ void Game::render()
 
 	case GAMEPLAY:
 		window.draw(*background.getSprite());
-		window.draw(*mole.getSprite());
+		window.draw(*character.getSprite());
 
 		break;
 
@@ -112,6 +113,7 @@ void Game::keyPressed(sf::Event event)
 
 		if (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Down)
 		{
+			menu.option_select(event);
 			std::cout << "Choice changed \n";
 			
 		}
