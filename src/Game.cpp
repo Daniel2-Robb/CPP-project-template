@@ -10,6 +10,9 @@ Game::Game(sf::RenderWindow& game_window)
 
 Game::~Game()
 {
+	delete[] characters;
+	delete[] passports;
+
 
 }
 
@@ -21,13 +24,39 @@ bool Game::init()
 
 			
 	//initialise background
-	background.initialiseSprite(background_texture, "../Data/WhackaMole Worksheet/background.png");
+	background_texture.loadFromFile("../Data/WhackaMole Worksheet/background.png");
+	background.initialiseSprite(background_texture);
 	//std::cout << "background texture loaded\n";
 
-	//initialise actors
-	character.initialiseSprite(character_texture, "../Data/WhackaMole Worksheet/Mouse_Right.png");
-	//std::cout << "mole texture loaded\n";
-	character.getSprite()->setScale(0.75f, 0.75f);
+	//initialise characters
+
+	if (!characters[0].loadFromFile("../Data/Images/Critter Crossing Customs/elephant.png"))
+	{
+		std::cout << "Could not load elephant texture";
+	}
+	else if (!characters[1].loadFromFile("../Data/Images/Critter Crossing Customs/moose.png"))
+	{
+		std::cout << "Could not load moose texture";
+	}
+	else if (!characters[2].loadFromFile("../Data/Images/Critter Crossing Customs/penguin.png"))
+	{
+		std::cout << "Could not load penguin texture";
+	}
+
+	
+	//initialise passports
+	if (!passports[0].loadFromFile("../Data/Images/Critter Crossing Customs/elephant passport.png"))
+	{
+		std::cout << "Could not load elephant passport";
+	}
+	else if (!passports[1].loadFromFile("../Data/Images/Critter Crossing Customs/moose passport.png"))
+	{
+		std::cout << "Could not load moose passport";
+	}
+	else if (!passports[2].loadFromFile("../Data/Images/Critter Crossing Customs/penguin passport.png"))
+	{
+		std::cout << "Could not load penguin passport";
+	}
 
   return true;
 }
@@ -64,6 +93,7 @@ void Game::render()
 	case GAMEPLAY:
 		window.draw(*background.getSprite());
 		window.draw(*character.getSprite());
+		window.draw(*passport.getSprite());
 
 		break;
 
@@ -121,6 +151,7 @@ void Game::keyPressed(sf::Event event)
 		{
 			if (menu.choice == Menu::START)
 			{
+				newAnimal();
 				state = GAMEPLAY;
 			}
 			else if (menu.choice == Menu::OPTIONS)
@@ -145,4 +176,41 @@ void Game::keyPressed(sf::Event event)
 	}
 }
 
+void Game::keyReleased(sf::Event event)
+{
+	if (event.key.code == sf::Keyboard::Escape)
+	{
+		window.close();
+	}
+}
 
+
+void Game::newAnimal()
+{
+	evil = false;
+	divine = false;
+
+	character_index = rand() % 3;
+	passport_index = rand() % 3;
+
+	if (character_index == passport_index)
+	{
+		divine = true;
+		std::cout << "Divine \n";
+	}
+	else
+	{
+		evil = true;
+		std::cout << "Evil \n";
+	}
+
+	character.initialiseSprite(characters[character_index]);
+	std::cout << "Character loaded\n";
+	character.getSprite()->setScale(1.8, 1.8);
+	character.getSprite()->setPosition(window.getSize().x / 12, window.getSize().y / 12);
+
+	passport.initialiseSprite(passports[passport_index]);
+	std::cout << "Passport loaded\n";
+	passport.getSprite()->setScale(0.6, 0.6);
+	passport.getSprite()->setPosition(window.getSize().x / 2, window.getSize().y / 3);
+}

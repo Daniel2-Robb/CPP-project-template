@@ -16,11 +16,11 @@ class Game
   void render();
   void mouseClicked(sf::Event event);
   void keyPressed(sf::Event event);
+  void keyReleased(sf::Event event);
+  void newAnimal();
 
  private:
   sf::RenderWindow& window;
-  sf::Sprite ball;
-  sf::Texture ball_texture;
 
   enum GameState
   {
@@ -33,12 +33,20 @@ class Game
 
   GameObject background;
   sf::Texture background_texture;
+
   GameObject character;
-  sf::Texture* characters = new sf::Texture[3];
   GameObject passport;
+
+  sf::Texture* characters = new sf::Texture[3];
   sf::Texture* passports = new sf::Texture[3];
 
   Menu menu;
+
+  bool evil = false;
+  bool divine = true;
+
+  int character_index = 0;
+  int passport_index = 0;
 
 };
 

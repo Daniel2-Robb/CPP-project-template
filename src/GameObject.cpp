@@ -19,13 +19,8 @@ void GameObject::init()
 
 }
 
-bool GameObject::initialiseSprite(sf::Texture& texture, std::string filename)
+bool GameObject::initialiseSprite(sf::Texture& texture)
 {
-	if (!texture.loadFromFile(filename))
-	{
-		std::cout << "Could not load texture";
-	}
-
 	sprite->setTexture(texture);
 	//std::cout << "Texture loaded\n";
 

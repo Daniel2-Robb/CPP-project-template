@@ -10,7 +10,7 @@ public:
 	GameObject();
 	~GameObject();
 	void init();
-	bool initialiseSprite(sf::Texture& texture, std::string filename);
+	bool initialiseSprite(sf::Texture& texture);
 	sf::Sprite* getSprite();
 	sf::Sprite* sprite = nullptr;
 
