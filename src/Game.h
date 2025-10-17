@@ -14,10 +14,12 @@ class Game
   bool init();
   void update(float dt);
   void render();
-  void mouseClicked(sf::Event event);
+  void mousePressed(sf::Event event);
+  void mouseReleased(sf::Event event);
   void keyPressed(sf::Event event);
   void keyReleased(sf::Event event);
   void newAnimal();
+  void dragSprite(sf::Sprite* sprite);
 
  private:
   sf::RenderWindow& window;
@@ -39,6 +41,15 @@ class Game
 
   sf::Texture* characters = new sf::Texture[3];
   sf::Texture* passports = new sf::Texture[3];
+
+  sf::Sprite* dragged = nullptr;
+
+  sf::Vector2i click;
+  sf::Vector2f clickf;
+
+  sf::Vector2i mouse_position;
+  sf::Vector2f mouse_positionf;
+  sf::Vector2f drag_position;
 
   Menu menu;
 

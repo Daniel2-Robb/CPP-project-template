@@ -71,6 +71,11 @@ void Game::update(float dt)
 
 	case GAMEPLAY:
 
+		if (dragged != nullptr)
+		{
+			dragSprite(dragged);
+		}
+
 		break;
 
 	case GAMEEND:
@@ -105,7 +110,7 @@ void Game::render()
 
 }
 
-void Game::mouseClicked(sf::Event event)
+void Game::mousePressed(sf::Event event)
 {
   //get the click position
   sf::Vector2i click = sf::Mouse::getPosition(window);
@@ -114,11 +119,21 @@ void Game::mouseClicked(sf::Event event)
   {
   case MENU:
 
-	  menu.render(window);
-
 	  break;
 
   case GAMEPLAY:
+
+	  if (event.mouseButton.button == sf::Mouse::Left)
+	  {
+		  click = sf::Mouse::getPosition(window);
+		  clickf = static_cast<sf::Vector2f>(click);
+
+		  if (passport.getSprite()->getGlobalBounds().contains(clickf))
+		  {
+			  dragged = passport.getSprite();
+			  
+		  }
+	  }
 
 	  break;
 
@@ -127,6 +142,18 @@ void Game::mouseClicked(sf::Event event)
 	  break;
   }
 
+
+}
+
+void Game::mouseReleased(sf::Event event)
+{
+
+	switch (state)
+	{
+	case GAMEPLAY:
+		dragged = nullptr;
+		break;
+	}
 
 }
 
@@ -213,4 +240,16 @@ void Game::newAnimal()
 	std::cout << "Passport loaded\n";
 	passport.getSprite()->setScale(0.6, 0.6);
 	passport.getSprite()->setPosition(window.getSize().x / 2, window.getSize().y / 3);
+}
+
+void Game::dragSprite(sf::Sprite* sprite)
+{
+	if (sprite != nullptr)
+	{
+		mouse_position = sf::Mouse::getPosition(window);
+		mouse_positionf = static_cast<sf::Vector2f>(mouse_position);
+
+		drag_position = mouse_positionf;
+		sprite->setPosition(drag_position.x, drag_position.y);
+	}
 }
