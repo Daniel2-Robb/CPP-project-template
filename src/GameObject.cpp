@@ -22,7 +22,6 @@ void GameObject::init()
 bool GameObject::initialiseSprite(sf::Texture& texture)
 {
 	sprite->setTexture(texture);
-	//std::cout << "Texture loaded\n";
 
 	return true;
 

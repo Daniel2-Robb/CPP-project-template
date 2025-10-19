@@ -12,8 +12,6 @@ Game::~Game()
 {
 	delete[] characters;
 	delete[] passports;
-
-
 }
 
 bool Game::init()
@@ -26,10 +24,8 @@ bool Game::init()
 	//initialise background
 	background_texture.loadFromFile("../Data/WhackaMole Worksheet/background.png");
 	background.initialiseSprite(background_texture);
-	//std::cout << "background texture loaded\n";
 
 	//initialise characters
-
 	if (!characters[0].loadFromFile("../Data/Images/Critter Crossing Customs/elephant.png"))
 	{
 		std::cout << "Could not load elephant texture";
@@ -57,6 +53,19 @@ bool Game::init()
 	{
 		std::cout << "Could not load penguin passport";
 	}
+
+	//initialise judgements
+	accept_button_texture.loadFromFile("../Data/Images/Critter Crossing Customs/accept button.png");
+	accept_button.initialiseSprite(accept_button_texture);
+
+	reject_button_texture.loadFromFile("../Data/Images/Critter Crossing Customs/reject button.png");
+	reject_button.initialiseSprite(reject_button_texture);
+
+	accept_stamp_texture.loadFromFile("../Data/Images/Critter Crossing Customs/accept.png");
+	accept_stamp.initialiseSprite(accept_stamp_texture);
+
+	reject_stamp_texture.loadFromFile("../Data/Images/Critter Crossing Customs/reject.png");
+	reject_stamp.initialiseSprite(reject_stamp_texture);
 
   return true;
 }
@@ -100,6 +109,23 @@ void Game::render()
 		window.draw(*character.getSprite());
 		window.draw(*passport.getSprite());
 
+		if (casting_judgement)
+		{
+			window.draw(*accept_button.getSprite());
+			window.draw(*reject_button.getSprite());
+		}
+		else if (judgement_cast)
+		{
+			if (accepted)
+			{
+				window.draw(*accept_stamp.getSprite());
+			}
+			else if (rejected)
+			{
+				window.draw(*reject_stamp.getSprite());
+			}
+		}
+
 		break;
 
 	case GAMEEND:
@@ -128,10 +154,49 @@ void Game::mousePressed(sf::Event event)
 		  click = sf::Mouse::getPosition(window);
 		  clickf = static_cast<sf::Vector2f>(click);
 
-		  if (passport.getSprite()->getGlobalBounds().contains(clickf))
+		  if (passport_moveable)
 		  {
-			  dragged = passport.getSprite();
-			  
+			  click = sf::Mouse::getPosition(window);
+			  clickf = static_cast<sf::Vector2f>(click);
+
+			  if (passport.getSprite()->getGlobalBounds().contains(clickf))
+			  {
+				  dragged = passport.getSprite();
+
+			  }
+		  }
+		  else if (!passport_moveable)
+		  {
+			  if (accept_button.getSprite()->getGlobalBounds().contains(clickf))
+			  {
+				  accepted = true;
+				  judgement_cast = true;
+				  casting_judgement = false;
+				  passport_moveable = true;
+				  accept_stamp.getSprite()->setPosition(passport.getSprite()->getPosition().x + 25, passport.getSprite()->getPosition().y + 50);
+			  }
+			  else if (reject_button.getSprite()->getGlobalBounds().contains(clickf))
+			  {
+				  rejected = true;
+				  judgement_cast = true;
+				  casting_judgement = false;
+				  passport_moveable = true;
+				  reject_stamp.getSprite()->setPosition(passport.getSprite()->getPosition().x + 25, passport.getSprite()->getPosition().y + 50);
+			  }
+		  }
+	  }
+	  else if (event.mouseButton.button == sf::Mouse::Right)
+	  {
+		  if (!judgement_cast)
+		  {
+			  click = sf::Mouse::getPosition(window);
+			  clickf = static_cast<sf::Vector2f>(click);
+
+			  accept_button.getSprite()->setPosition(clickf.x, clickf.y);
+			  reject_button.getSprite()->setPosition(clickf.x, clickf.y + accept_button.getSprite()->getGlobalBounds().height + 10);
+
+			  casting_judgement = true;
+			  passport_moveable = false;
 		  }
 	  }
 
@@ -171,7 +236,6 @@ void Game::keyPressed(sf::Event event)
 		if (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Down)
 		{
 			menu.option_select(event);
-			std::cout << "Choice changed \n";
 			
 		}
 		else
@@ -232,12 +296,12 @@ void Game::newAnimal()
 	}
 
 	character.initialiseSprite(characters[character_index]);
-	std::cout << "Character loaded\n";
+	//std::cout << "Character loaded\n";
 	character.getSprite()->setScale(1.8, 1.8);
 	character.getSprite()->setPosition(window.getSize().x / 12, window.getSize().y / 12);
 
 	passport.initialiseSprite(passports[passport_index]);
-	std::cout << "Passport loaded\n";
+	//std::cout << "Passport loaded\n";
 	passport.getSprite()->setScale(0.6, 0.6);
 	passport.getSprite()->setPosition(window.getSize().x / 2, window.getSize().y / 3);
 }
@@ -251,5 +315,9 @@ void Game::dragSprite(sf::Sprite* sprite)
 
 		drag_position = mouse_positionf;
 		sprite->setPosition(drag_position.x, drag_position.y);
+
+		accept_stamp.getSprite()->setPosition(drag_position.x + 25, drag_position.y + 50);
+		reject_stamp.getSprite()->setPosition(drag_position.x + 25, drag_position.y + 50);
+
 	}
 }

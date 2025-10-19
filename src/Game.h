@@ -36,8 +36,21 @@ class Game
   GameObject background;
   sf::Texture background_texture;
 
+  GameObject accept_button;
+  sf::Texture accept_button_texture;
+
+  GameObject accept_stamp;
+  sf::Texture accept_stamp_texture;
+
+  GameObject reject_button;
+  sf::Texture reject_button_texture;
+
+  GameObject reject_stamp;
+  sf::Texture reject_stamp_texture;
+
   GameObject character;
   GameObject passport;
+
 
   sf::Texture* characters = new sf::Texture[3];
   sf::Texture* passports = new sf::Texture[3];
@@ -55,6 +68,11 @@ class Game
 
   bool evil = false;
   bool divine = true;
+  bool casting_judgement = false;
+  bool judgement_cast = false;
+  bool passport_moveable = true;
+  bool accepted = false;
+  bool rejected = false;
 
   int character_index = 0;
   int passport_index = 0;
