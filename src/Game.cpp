@@ -10,8 +10,7 @@ Game::Game(sf::RenderWindow& game_window)
 
 Game::~Game()
 {
-	delete[] characters;
-	delete[] passports;
+	
 }
 
 bool Game::init()
@@ -20,39 +19,30 @@ bool Game::init()
 
 	menu.init(window);
 	game_over.init(window);
+
+	characters.reserve(4);
+	passports.reserve(4);
 			
 	//initialise background
 	background_texture.loadFromFile("../Data/WhackaMole Worksheet/background.png");
 	background.initialiseSprite(background_texture);
 
 	//initialise characters
-	if (!characters[0].loadFromFile("../Data/Images/Critter Crossing Customs/elephant.png"))
-	{
-		std::cout << "Could not load elephant texture";
-	}
-	else if (!characters[1].loadFromFile("../Data/Images/Critter Crossing Customs/moose.png"))
-	{
-		std::cout << "Could not load moose texture";
-	}
-	else if (!characters[2].loadFromFile("../Data/Images/Critter Crossing Customs/penguin.png"))
-	{
-		std::cout << "Could not load penguin texture";
-	}
+	characters.emplace_back();
+	characters[0].loadFromFile("../Data/Images/Critter Crossing Customs/elephant.png");
+	characters.emplace_back();
+	characters[1].loadFromFile("../Data/Images/Critter Crossing Customs/moose.png");
+	characters.emplace_back();
+	characters[2].loadFromFile("../Data/Images/Critter Crossing Customs/penguin.png");
 
-	
+
 	//initialise passports
-	if (!passports[0].loadFromFile("../Data/Images/Critter Crossing Customs/elephant passport.png"))
-	{
-		std::cout << "Could not load elephant passport";
-	}
-	else if (!passports[1].loadFromFile("../Data/Images/Critter Crossing Customs/moose passport.png"))
-	{
-		std::cout << "Could not load moose passport";
-	}
-	else if (!passports[2].loadFromFile("../Data/Images/Critter Crossing Customs/penguin passport.png"))
-	{
-		std::cout << "Could not load penguin passport";
-	}
+	passports.emplace_back();
+	passports[0].loadFromFile("../Data/Images/Critter Crossing Customs/elephant passport.png");
+	passports.emplace_back();
+	passports[1].loadFromFile("../Data/Images/Critter Crossing Customs/moose passport.png");
+	passports.emplace_back();
+	passports[2].loadFromFile("../Data/Images/Critter Crossing Customs/penguin passport.png");
 
 	//initialise judgements
 	accept_button_texture.loadFromFile("../Data/Images/Critter Crossing Customs/accept button.png");

@@ -53,8 +53,11 @@ class Game
   GameObject passport;
 
 
-  sf::Texture* characters = new sf::Texture[3];
-  sf::Texture* passports = new sf::Texture[3];
+ // sf::Texture* characters = new sf::Texture[3];
+ // sf::Texture* passports = new sf::Texture[3];
+  std::vector<sf::Texture> characters;
+  std::vector<sf::Texture> passports;
+
 
   sf::Sprite* dragged = nullptr;
 

@@ -28,7 +28,7 @@ void GameOver::init(sf::RenderWindow& window)
 
 	return_message.setString("To return to the main menu, press any key");
 	return_message.setFont(font1);
-	return_message.setCharacterSize(40);
+	return_message.setCharacterSize(60);
 	return_message.setFillColor(sf::Color(255, 255, 255, 255));
 	return_message.setPosition(window.getSize().x / 2 - return_message.getGlobalBounds().width / 2, 400);
 }
