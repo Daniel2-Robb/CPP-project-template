@@ -61,6 +61,8 @@ class Game
 
   sf::Sprite* dragged = nullptr;
 
+  //std::unique_ptr<sf::Sprite> dragged;
+
   sf::Vector2i click;
   sf::Vector2f clickf;
 

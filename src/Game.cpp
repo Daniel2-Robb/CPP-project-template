@@ -162,6 +162,7 @@ void Game::mousePressed(sf::Event event)
 			  if (passport.getSprite()->getGlobalBounds().contains(clickf))
 			  {
 				  dragged = passport.getSprite();
+				 //std::make_unique<sf::Sprite>(passport.getSprite())
 
 			  }
 		  }
@@ -346,12 +347,10 @@ void Game::returnPassport()
 		{
 			if ((accepted && divine) || (rejected && evil))
 			{
-				std::cout << "Correct\n"; 
 				score++;
 			}
 			else
 			{
-				std::cout << "Incorrect\n";
 				lives--;
 				lives_text.setString("Lives: " + std::to_string(lives));
 				if (lives <= 0)
