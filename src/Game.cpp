@@ -57,6 +57,14 @@ bool Game::init()
 	reject_stamp_texture.loadFromFile("../Data/Images/Critter Crossing Customs/reject.png");
 	reject_stamp.initialiseSprite(reject_stamp_texture);
 
+	//initialise lives text
+	font.loadFromFile("../Data/Fonts/JudasPriest.ttf");
+	lives_text.setString("Lives: " + std::to_string(lives));
+	lives_text.setFont(font);
+	lives_text.setCharacterSize(40);
+	lives_text.setFillColor(sf::Color(255, 38, 79, 255));
+	lives_text.setPosition((window.getSize().x / 6) * 5 - lives_text.getGlobalBounds().width / 2, 50);
+
   return true;
 }
 
@@ -99,6 +107,7 @@ void Game::render()
 		window.draw(*background.getSprite());
 		window.draw(*character.getSprite());
 		window.draw(*passport.getSprite());
+		window.draw(lives_text);
 
 		if (casting_judgement)
 		{
@@ -344,6 +353,7 @@ void Game::returnPassport()
 			{
 				std::cout << "Incorrect\n";
 				lives--;
+				lives_text.setString("Lives: " + std::to_string(lives));
 				if (lives <= 0)
 				{
 					game_over.final_score.setString("Your Score: " + std::to_string(score));

@@ -68,6 +68,9 @@ class Game
   sf::Vector2f mouse_positionf;
   sf::Vector2f drag_position;
 
+  sf::Font font;
+  sf::Text lives_text;
+
   Menu menu;
   GameOver game_over;
 
