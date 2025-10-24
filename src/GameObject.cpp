@@ -21,7 +21,7 @@ void GameObject::init()
 
 bool GameObject::initialiseSprite(sf::Texture& texture)
 {
-	sprite->setTexture(texture);
+	sprite->setTexture(texture, true);
 
 	return true;
 
