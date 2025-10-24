@@ -34,12 +34,6 @@ void Menu::init(sf::RenderWindow& window)
 	start_text.setFillColor(sf::Color(255, 255, 255, 255));
 	start_text.setPosition(window.getSize().x / 2 - menu_text.getGlobalBounds().width / 2, 300);
 
-	options_text.setString("Options");
-	options_text.setFont(font2);
-	options_text.setCharacterSize(40);
-	options_text.setFillColor(sf::Color(255, 255, 255, 255));
-	options_text.setPosition(window.getSize().x / 2 - menu_text.getGlobalBounds().width / 2, 350);
-
 	exit_text.setString("Exit");
 	exit_text.setFont(font2);
 	exit_text.setCharacterSize(40);
@@ -55,19 +49,12 @@ void Menu::update()
 	{
 	case (START):
 		start_text.setString("> Start");
-		options_text.setString("Options");
-		exit_text.setString("Exit");
-		break;
-
-	case (OPTIONS):
-		start_text.setString("Start");
-		options_text.setString("> Options");
 		exit_text.setString("Exit");
 		break;
 
 	case (EXIT):
 		start_text.setString("Start");
-		options_text.setString("Options");
+		//options_text.setString("Options");
 		exit_text.setString("> Exit");
 		break;
 	}
@@ -82,11 +69,9 @@ void Menu::option_select(sf::Event event)
 		case(START):
 			choice = EXIT;
 			break;
-		case(OPTIONS):
-			choice = START;
-			break;
+
 		case(EXIT):
-			choice = OPTIONS;
+			choice = START;
 			break;
 		}
 
@@ -96,11 +81,9 @@ void Menu::option_select(sf::Event event)
 		switch (choice)
 		{
 		case(START):
-			choice = OPTIONS;
-			break;
-		case(OPTIONS):
 			choice = EXIT;
 			break;
+
 		case(EXIT):
 			choice = START;
 			break;
@@ -113,6 +96,5 @@ void Menu::render(sf::RenderWindow & window)
 	window.clear(sf::Color(100, 0, 255, 255));
 	window.draw(menu_text);
 	window.draw(start_text);
-	window.draw(options_text);
 	window.draw(exit_text);
 }

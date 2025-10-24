@@ -18,13 +18,11 @@ public:
 	sf::Font font2;
 	sf::Text menu_text;
 	sf::Text start_text;
-	sf::Text options_text;
 	sf::Text exit_text;
 
 	enum MenuSelection
 	{
 		START,
-		OPTIONS,
 		EXIT
 	};
 	MenuSelection choice = START;

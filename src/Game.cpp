@@ -19,7 +19,7 @@ bool Game::init()
 	state = MENU;
 
 	menu.init(window);
-
+	game_over.init(window);
 			
 	//initialise background
 	background_texture.loadFromFile("../Data/WhackaMole Worksheet/background.png");
@@ -76,6 +76,7 @@ void Game::update(float dt)
 	{
 	case MENU:
 		menu.update();
+		score = 0;
 		break;
 
 	case GAMEPLAY:
@@ -129,7 +130,7 @@ void Game::render()
 		break;
 
 	case GAMEEND:
-
+		game_over.render(window);
 		break;
 	}
 
@@ -216,6 +217,12 @@ void Game::mouseReleased(sf::Event event)
 	switch (state)
 	{
 	case GAMEPLAY:
+
+		if (dragged != nullptr)
+		{
+			returnPassport();
+		}
+
 		dragged = nullptr;
 		break;
 	}
@@ -245,10 +252,6 @@ void Game::keyPressed(sf::Event event)
 				newAnimal();
 				state = GAMEPLAY;
 			}
-			else if (menu.choice == Menu::OPTIONS)
-			{
-				state = OPTIONS;
-			}
 			else if (menu.choice == Menu::EXIT)
 			{
 				window.close();
@@ -273,6 +276,12 @@ void Game::keyReleased(sf::Event event)
 	{
 		window.close();
 	}
+
+	switch (state)
+	{
+	case GAMEEND:
+		state = MENU;
+	}
 }
 
 
@@ -280,6 +289,9 @@ void Game::newAnimal()
 {
 	evil = false;
 	divine = false;
+	judgement_cast = false;
+	accepted = false;
+	rejected = false;
 
 	character_index = rand() % 3;
 	passport_index = rand() % 3;
@@ -319,5 +331,37 @@ void Game::dragSprite(sf::Sprite* sprite)
 		accept_stamp.getSprite()->setPosition(drag_position.x + 25, drag_position.y + 50);
 		reject_stamp.getSprite()->setPosition(drag_position.x + 25, drag_position.y + 50);
 
+	}
+}
+
+void Game::returnPassport()
+{
+
+	mouse_position = sf::Mouse::getPosition(window);
+	mouse_positionf = static_cast<sf::Vector2f>(mouse_position);
+
+
+	if (judgement_cast)
+	{
+		if (character.getSprite()->getGlobalBounds().contains(mouse_positionf))
+		{
+			if ((accepted && divine) || (rejected && evil))
+			{
+				std::cout << "Correct\n"; 
+				score++;
+			}
+			else
+			{
+				std::cout << "Incorrect\n";
+				lives--;
+				if (lives <= 0)
+				{
+					game_over.final_score.setString("Your Score: " + std::to_string(score));
+					state = GAMEEND;
+				}
+			}
+
+			newAnimal();
+		}
 	}
 }

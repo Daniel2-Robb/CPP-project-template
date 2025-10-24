@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 #include "Flavour/Menu.h"
+#include "Flavour/GameOver.h"
 
 class Game
 {
@@ -20,6 +21,7 @@ class Game
   void keyReleased(sf::Event event);
   void newAnimal();
   void dragSprite(sf::Sprite* sprite);
+  void returnPassport();
 
  private:
   sf::RenderWindow& window;
@@ -27,7 +29,6 @@ class Game
   enum GameState
   {
 	  MENU,
-	  OPTIONS,
 	  GAMEPLAY,
 	  GAMEEND
   }; 
@@ -65,9 +66,10 @@ class Game
   sf::Vector2f drag_position;
 
   Menu menu;
+  GameOver game_over;
 
   bool evil = false;
-  bool divine = true;
+  bool divine = false;
   bool casting_judgement = false;
   bool judgement_cast = false;
   bool passport_moveable = true;
@@ -76,6 +78,8 @@ class Game
 
   int character_index = 0;
   int passport_index = 0;
+  int score = 0;
+  int lives = 3;
 
 };
 
