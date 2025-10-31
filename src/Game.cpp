@@ -45,16 +45,16 @@ bool Game::init()
 	passports[2].loadFromFile("../Data/Images/Critter Crossing Customs/penguin passport.png");
 
 	//initialise judgements
-	accept_button_texture.loadFromFile("../Data/Images/Critter Crossing Customs/accept button.png");
+	accept_button_texture.loadFromFile("../Data/Images/Custom sprites/divine button.png");
 	accept_button.initialiseSprite(accept_button_texture);
 
-	reject_button_texture.loadFromFile("../Data/Images/Critter Crossing Customs/reject button.png");
+	reject_button_texture.loadFromFile("../Data/Images/Custom sprites/evil button.png");
 	reject_button.initialiseSprite(reject_button_texture);
 
-	accept_stamp_texture.loadFromFile("../Data/Images/Critter Crossing Customs/accept.png");
+	accept_stamp_texture.loadFromFile("../Data/Images/Custom sprites/divine.png");
 	accept_stamp.initialiseSprite(accept_stamp_texture);
 
-	reject_stamp_texture.loadFromFile("../Data/Images/Critter Crossing Customs/reject.png");
+	reject_stamp_texture.loadFromFile("../Data/Images/Custom sprites/evil.png");
 	reject_stamp.initialiseSprite(reject_stamp_texture);
 
 	//initialise lives text
@@ -161,8 +161,9 @@ void Game::mousePressed(sf::Event event)
 
 			  if (passport.getSprite()->getGlobalBounds().contains(clickf))
 			  {
-				  dragged = passport.getSprite();
-				 //std::make_unique<sf::Sprite>(passport.getSprite())
+				  dragged.reset(passport.getSprite());
+				  //dragged = passport.getSprite();
+				 // dragged = std::make_shared<sf::Sprite>(passport.getSprite());
 
 			  }
 		  }
@@ -223,7 +224,7 @@ void Game::mouseReleased(sf::Event event)
 			returnPassport();
 		}
 
-		dragged = nullptr;
+		dragged.release();
 		break;
 	}
 
@@ -318,7 +319,7 @@ void Game::newAnimal()
 	passport.getSprite()->setPosition(window.getSize().x / 2, window.getSize().y / 3);
 }
 
-void Game::dragSprite(sf::Sprite* sprite)
+void Game::dragSprite(std::unique_ptr<sf::Sprite>& sprite)
 {
 	if (sprite != nullptr)
 	{

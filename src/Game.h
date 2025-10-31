@@ -20,7 +20,7 @@ class Game
   void keyPressed(sf::Event event);
   void keyReleased(sf::Event event);
   void newAnimal();
-  void dragSprite(sf::Sprite* sprite);
+  void dragSprite(std::unique_ptr<sf::Sprite>& sprite);
   void returnPassport();
 
  private:
@@ -53,15 +53,14 @@ class Game
   GameObject passport;
 
 
- // sf::Texture* characters = new sf::Texture[3];
- // sf::Texture* passports = new sf::Texture[3];
+ 
   std::vector<sf::Texture> characters;
   std::vector<sf::Texture> passports;
 
 
-  sf::Sprite* dragged = nullptr;
+ // sf::Sprite* dragged = nullptr;
 
-  //std::unique_ptr<sf::Sprite> dragged;
+  std::unique_ptr<sf::Sprite> dragged = std::make_unique<sf::Sprite>();
 
   sf::Vector2i click;
   sf::Vector2f clickf;
