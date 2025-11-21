@@ -4,6 +4,7 @@
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/System/Clock.hpp>
 #include "GameObject.h"
 #include "Flavour/Menu.h"
 #include "Flavour/GameOver.h"
@@ -69,7 +70,6 @@ class Game
   sf::Vector2f drag_position;
 
   sf::Font font;
-  sf::Text lives_text;
 
   Menu menu;
   GameOver game_over;
@@ -85,10 +85,13 @@ class Game
   int character_index = 0;
   int passport_index = 0;
   int score = 0;
-  int lives = 3;
 
   sf::Music intro;
-  bool music_playing =================================================
+  bool music_playing = false;
+
+  sf::Clock timer;
+  int time_remaining = 30;
+  sf::Text timer_text;
 
 };
 

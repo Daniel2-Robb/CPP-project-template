@@ -10,7 +10,7 @@ public:
 	GameOver();
 	~GameOver();
 	void init(sf::RenderWindow& window);
-	void render(sf::RenderWindow& window);
+	void render(sf::RenderWindow& window, int score);
 
 	sf::Font font1;
 	sf::Font font2;

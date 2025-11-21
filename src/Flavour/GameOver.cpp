@@ -27,15 +27,15 @@ void GameOver::init(sf::RenderWindow& window)
 	final_score.setFillColor(sf::Color(255, 255, 255, 255));
 
 	return_message.setString("To return to the main menu, press any key");
-	return_message.setFont(font1);
+	return_message.setFont(font2);
 	return_message.setCharacterSize(60);
 	return_message.setFillColor(sf::Color(255, 255, 255, 255));
 	return_message.setPosition(window.getSize().x / 2 - return_message.getGlobalBounds().width / 2, 400);
 }
 
-void GameOver::render(sf::RenderWindow& window)
+void GameOver::render(sf::RenderWindow& window, int score)
 {
-
+	final_score.setString("Game Over. Your score: " + std::to_string(score));
 	final_score.setPosition(window.getSize().x / 2 - final_score.getGlobalBounds().width / 2, 100);
 	window.draw(final_score);
 	window.draw(return_message);

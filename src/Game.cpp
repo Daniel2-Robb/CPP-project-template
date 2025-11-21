@@ -57,16 +57,24 @@ bool Game::init()
 	reject_stamp_texture.loadFromFile("../Data/Images/Custom sprites/evil.png");
 	reject_stamp.initialiseSprite(reject_stamp_texture);
 
-	//initialise lives text
+	//initialise font
 	font.loadFromFile("../Data/Fonts/JudasPriest.ttf");
-	lives_text.setString("Lives: " + std::to_string(lives));
-	lives_text.setFont(font);
-	lives_text.setCharacterSize(40);
-	lives_text.setFillColor(sf::Color(255, 38, 79, 255));
-	lives_text.setPosition((window.getSize().x / 6) * 5 - lives_text.getGlobalBounds().width / 2, 50);
 
 	//initialise music
-	intro.openFromFile("../Data/Audio/Last in Line (Intro).mp3");
+	if (!intro.openFromFile("../Data/Audio/Last in Line (Intro).mp3"))
+	{
+		std::cout << "could not load music\n";
+	}
+
+	//initialise timer
+	timer.restart();
+
+	//initialise timer text
+	timer_text.setString(std::to_string(time_remaining));
+	timer_text.setFont(font);
+	timer_text.setCharacterSize(50);
+	timer_text.setFillColor(sf::Color(255, 38, 79, 255));
+	timer_text.setPosition((window.getSize().x / 2) - timer_text.getGlobalBounds().width / 2, 50);
 
   return true;
 }
@@ -78,6 +86,13 @@ void Game::update(float dt)
 	case MENU:
 		menu.update();
 		score = 0;
+
+		if (!music_playing)
+		{
+			music_playing = true;
+			intro.play();
+		}
+
 		break;
 
 	case GAMEPLAY:
@@ -85,6 +100,25 @@ void Game::update(float dt)
 		if (dragged != nullptr)
 		{
 			dragSprite(dragged);
+		}
+
+		
+
+		if (timer.getElapsedTime().asSeconds() >= 1)
+		{
+			time_remaining--;
+			/*std::cout << std::to_string(timer.getElapsedTime().asSeconds()) << "\n";*/
+
+			if (time_remaining <= 0)
+			{
+				state = GAMEEND;
+			}
+			else
+			{
+				timer.restart();
+				timer_text.setString(std::to_string(time_remaining));
+				window.draw(timer_text);
+			}
 		}
 
 		break;
@@ -110,7 +144,7 @@ void Game::render()
 		window.draw(*background.getSprite());
 		window.draw(*character.getSprite());
 		window.draw(*passport.getSprite());
-		window.draw(lives_text);
+		window.draw(timer_text);
 
 		if (casting_judgement)
 		{
@@ -132,7 +166,7 @@ void Game::render()
 		break;
 
 	case GAMEEND:
-		game_over.render(window);
+		game_over.render(window, score);
 		break;
 	}
 
@@ -165,8 +199,6 @@ void Game::mousePressed(sf::Event event)
 			  if (passport.getSprite()->getGlobalBounds().contains(clickf))
 			  {
 				  dragged.reset(passport.getSprite());
-				  //dragged = passport.getSprite();
-				 // dragged = std::make_shared<sf::Sprite>(passport.getSprite());
 
 			  }
 		  }
@@ -352,16 +384,13 @@ void Game::returnPassport()
 			if ((accepted && divine) || (rejected && evil))
 			{
 				score++;
+				time_remaining += 3;
+				timer_text.setString(std::to_string(time_remaining));
 			}
 			else
 			{
-				lives--;
-				lives_text.setString("Lives: " + std::to_string(lives));
-				if (lives <= 0)
-				{
-					game_over.final_score.setString("Your Score: " + std::to_string(score));
-					state = GAMEEND;
-				}
+				time_remaining -= 3;
+				timer_text.setString(std::to_string(time_remaining));
 			}
 
 			newAnimal();
