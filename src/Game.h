@@ -2,6 +2,7 @@
 #ifndef PLATFORMER_GAME_H
 #define PLATFORMER_GAME_H
 
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 #include "Flavour/Menu.h"
@@ -58,8 +59,6 @@ class Game
   std::vector<sf::Texture> passports;
 
 
- // sf::Sprite* dragged = nullptr;
-
   std::unique_ptr<sf::Sprite> dragged = std::make_unique<sf::Sprite>();
 
   sf::Vector2i click;
@@ -87,6 +86,9 @@ class Game
   int passport_index = 0;
   int score = 0;
   int lives = 3;
+
+  sf::Music intro;
+  bool music_playing =================================================
 
 };
 

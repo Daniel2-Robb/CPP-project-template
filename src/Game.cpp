@@ -65,6 +65,9 @@ bool Game::init()
 	lives_text.setFillColor(sf::Color(255, 38, 79, 255));
 	lives_text.setPosition((window.getSize().x / 6) * 5 - lives_text.getGlobalBounds().width / 2, 50);
 
+	//initialise music
+	intro.openFromFile("../Data/Audio/Last in Line (Intro).mp3");
+
   return true;
 }
 

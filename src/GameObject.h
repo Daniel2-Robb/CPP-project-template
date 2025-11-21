@@ -13,11 +13,11 @@ public:
 	bool initialiseSprite(sf::Texture& texture);
 
 	sf::Sprite* getSprite();
-	sf::Sprite* sprite = nullptr;
 
 
 private:
-	
+
+	sf::Sprite* sprite = nullptr;
 
 };
 
