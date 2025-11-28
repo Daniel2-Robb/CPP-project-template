@@ -8,6 +8,7 @@
 #include "GameObject.h"
 #include "Flavour/Menu.h"
 #include "Flavour/GameOver.h"
+#include "Flavour/NewDay.h"
 
 class Game
 {
@@ -24,6 +25,7 @@ class Game
   void newAnimal();
   void dragSprite(std::unique_ptr<sf::Sprite>& sprite);
   void returnPassport();
+  void freshDay();
 
  private:
   sf::RenderWindow& window;
@@ -31,6 +33,8 @@ class Game
   enum GameState
   {
 	  MENU,
+	  DAYSTART,
+	  DAYEND,
 	  GAMEPLAY,
 	  GAMEEND
   }; 
@@ -73,6 +77,7 @@ class Game
 
   Menu menu;
   GameOver game_over;
+  NewDay new_day;
 
   bool evil = false;
   bool divine = false;
@@ -85,13 +90,18 @@ class Game
   int character_index = 0;
   int passport_index = 0;
   int score = 0;
+  int quota = 0;
+  int day = 0;
 
   sf::Music intro;
   bool music_playing = false;
 
   sf::Clock timer;
   int time_remaining = 30;
+  int default_timer = 30;
   sf::Text timer_text;
+
+  sf::Text quota_text;
 
 };
 

@@ -19,6 +19,7 @@ bool Game::init()
 
 	menu.init(window);
 	game_over.init(window);
+	new_day.init(window);
 
 	characters.reserve(4);
 	passports.reserve(4);
@@ -76,6 +77,14 @@ bool Game::init()
 	timer_text.setFillColor(sf::Color(255, 38, 79, 255));
 	timer_text.setPosition((window.getSize().x / 2) - timer_text.getGlobalBounds().width / 2, 50);
 
+	//initialise quota text
+	quota_text.setFont(font);
+	quota_text.setCharacterSize(50);
+	quota_text.setFillColor(sf::Color(255, 255, 255, 255));
+	quota_text.setPosition(5 * (window.getSize().x / 6) - quota_text.getGlobalBounds().width / 2, 50);
+
+		
+
   return true;
 }
 
@@ -123,6 +132,7 @@ void Game::update(float dt)
 
 		break;
 
+	
 	case GAMEEND:
 
 		break;
@@ -140,11 +150,19 @@ void Game::render()
 		menu.render(window);
 		break;
 
+	case DAYSTART:
+		new_day.dayStart(window,day);
+		break;
+	case DAYEND:
+		new_day.dayEnd(window,day);
+		break;
+
 	case GAMEPLAY:
 		window.draw(*background.getSprite());
 		window.draw(*character.getSprite());
 		window.draw(*passport.getSprite());
 		window.draw(timer_text);
+		window.draw(quota_text);
 
 		if (casting_judgement)
 		{
@@ -281,19 +299,6 @@ void Game::keyPressed(sf::Event event)
 			menu.option_select(event);
 			
 		}
-		else
-		{
-			if (menu.choice == Menu::START)
-			{
-				newAnimal();
-				state = GAMEPLAY;
-			}
-			else if (menu.choice == Menu::EXIT)
-			{
-				window.close();
-			}
-		}
-
 		break;
 
 	case GAMEPLAY:
@@ -315,8 +320,32 @@ void Game::keyReleased(sf::Event event)
 
 	switch (state)
 	{
+	case MENU:
+		if (menu.choice == Menu::START)
+		{
+			newAnimal();
+			freshDay();
+			quota_text.setString(std::to_string(score) + " / " + std::to_string(quota));
+			state = DAYSTART;
+			break;
+		}
+		else if (menu.choice == Menu::EXIT)
+		{
+			window.close();
+		}
+		break;
+
 	case GAMEEND:
 		state = MENU;
+		break;
+	case DAYSTART:
+		state = GAMEPLAY;
+		break;
+	case DAYEND:
+		freshDay();
+		quota_text.setString(std::to_string(score) + " / " + std::to_string(quota));
+		state = DAYSTART;
+		break;
 	}
 }
 
@@ -328,6 +357,22 @@ void Game::newAnimal()
 	judgement_cast = false;
 	accepted = false;
 	rejected = false;
+
+	/*if (day == 1)
+	{
+		character_index = rand() % 3;
+		passport_index = rand() % 3;
+	}
+	else if (day == 2)
+	{
+		character_index = rand() % 5;
+		passport_index = rand() % 5;
+	}
+	else
+	{
+		character_index = rand() % 7;
+		passport_index = rand() % 7;
+	}*/
 
 	character_index = rand() % 3;
 	passport_index = rand() % 3;
@@ -384,8 +429,13 @@ void Game::returnPassport()
 			if ((accepted && divine) || (rejected && evil))
 			{
 				score++;
-				time_remaining += 3;
-				timer_text.setString(std::to_string(time_remaining));
+
+				quota_text.setString(std::to_string(score) + " / " + std::to_string(quota));
+
+				if (score == quota)
+				{
+					state = DAYEND;
+				}
 			}
 			else
 			{
@@ -396,4 +446,13 @@ void Game::returnPassport()
 			newAnimal();
 		}
 	}
+}
+
+void Game::freshDay()
+{
+	day++;
+	score = 0;
+	quota += 5;
+	time_remaining = default_timer;
+
 }

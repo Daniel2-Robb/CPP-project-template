@@ -18,7 +18,7 @@ FetchContent_MakeAvailable(SFML)    # Makes sure SFML and its dependencies are a
 #---- File management & .exe creation ----#
 
 set(SOURCE_FILES src/main.cpp src/Game.cpp src/Game.h)  # Sets variable SOURCE_FILES to hold names & locations of files that need to be compiled into the application
-add_executable(PlatformerSFML ${SOURCE_FILES} "src/GameObject.h" "src/GameObject.cpp" "src/Flavour/Menu.h" "src/Flavour/Menu.cpp" "src/Flavour/GameOver.h" "src/Flavour/GameOver.cpp")  # Names the application and tells compiler which source files to use
+add_executable(PlatformerSFML ${SOURCE_FILES} "src/GameObject.h" "src/GameObject.cpp" "src/Flavour/Menu.h" "src/Flavour/Menu.cpp" "src/Flavour/GameOver.h" "src/Flavour/GameOver.cpp" "src/Flavour/NewDay.h" "src/Flavour/NewDay.cpp")  # Names the application and tells compiler which source files to use
 
 
 
