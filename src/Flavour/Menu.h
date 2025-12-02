@@ -13,6 +13,7 @@ public:
 	void update();
 	void option_select(sf::Event event);
 	void render(sf::RenderWindow& window);
+	sf::String mouseReleased(sf::RenderWindow& window, sf::Event event);
 
 	sf::Font font1;
 	sf::Font font2;
@@ -26,6 +27,10 @@ public:
 		EXIT
 	};
 	MenuSelection choice = START;
+
+private:
+	sf::Vector2i click;
+	sf::Vector2f clickf;
 
 };
 

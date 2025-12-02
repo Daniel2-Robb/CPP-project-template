@@ -98,3 +98,22 @@ void Menu::render(sf::RenderWindow & window)
 	window.draw(start_text);
 	window.draw(exit_text);
 }
+
+sf::String Menu::mouseReleased(sf::RenderWindow& window, sf::Event event)
+{
+	click = sf::Mouse::getPosition(window);
+	clickf = static_cast<sf::Vector2f>(click);
+
+	if (start_text.getGlobalBounds().contains(clickf))
+	{
+		return "start";
+	}
+	else if (exit_text.getGlobalBounds().contains(clickf))
+	{
+		return "quit";
+	}
+	else
+	{
+		return "null";
+	}
+}

@@ -21,8 +21,8 @@ bool Game::init()
 	game_over.init(window);
 	new_day.init(window);
 
-	characters.reserve(4);
-	passports.reserve(4);
+	characters.reserve(8);
+	passports.reserve(8);
 			
 	//initialise background
 	background_texture.loadFromFile("../Data/WhackaMole Worksheet/background.png");
@@ -35,6 +35,14 @@ bool Game::init()
 	characters[1].loadFromFile("../Data/Images/Critter Crossing Customs/moose.png");
 	characters.emplace_back();
 	characters[2].loadFromFile("../Data/Images/Critter Crossing Customs/penguin.png");
+	characters.emplace_back();
+	characters[3].loadFromFile("../Data/Images/Custom sprites/kane.png");
+	characters.emplace_back();
+	characters[4].loadFromFile("../Data/Images/Custom sprites/cillian.png");
+	/*characters.emplace_back();
+	characters[5].loadFromFile("../Data/Images/Custom sprites/");
+	characters.emplace_back();
+	characters[6].loadFromFile("../Data/Images/Custom sprites/");*/
 
 
 	//initialise passports
@@ -44,6 +52,14 @@ bool Game::init()
 	passports[1].loadFromFile("../Data/Images/Critter Crossing Customs/moose passport.png");
 	passports.emplace_back();
 	passports[2].loadFromFile("../Data/Images/Critter Crossing Customs/penguin passport.png");
+	passports.emplace_back();
+	passports[3].loadFromFile("../Data/Images/Custom sprites/kane passport.png");
+	passports.emplace_back();
+	passports[4].loadFromFile("../Data/Images/Custom sprites/cillian passport.png");
+	/*passports.emplace_back();
+	passports[5].loadFromFile("../Data/Images/Custom sprites/");
+	passports.emplace_back();
+	passports[6].loadFromFile("../Data/Images/Custom sprites/");*/
 
 	//initialise judgements
 	accept_button_texture.loadFromFile("../Data/Images/Custom sprites/divine button.png");
@@ -270,6 +286,21 @@ void Game::mouseReleased(sf::Event event)
 
 	switch (state)
 	{
+	case MENU:
+		if (menu.mouseReleased(window, event) == "start")
+		{
+			newAnimal();
+			freshDay();
+			quota_text.setString(std::to_string(score) + " / " + std::to_string(quota));
+			state = DAYSTART;
+		}
+		else if (menu.mouseReleased(window, event) == "quit")
+		{
+			window.close();
+		}
+
+		break;
+
 	case GAMEPLAY:
 
 		if (dragged != nullptr)
@@ -279,7 +310,18 @@ void Game::mouseReleased(sf::Event event)
 
 		dragged.release();
 		break;
+	
+	case DAYSTART:
+		state = GAMEPLAY;
+		break;
+
+	case DAYEND:
+		freshDay();
+		quota_text.setString(std::to_string(score) + " / " + std::to_string(quota));
+		state = DAYSTART;
+		break;
 	}
+	
 
 }
 
@@ -358,24 +400,24 @@ void Game::newAnimal()
 	accepted = false;
 	rejected = false;
 
-	/*if (day == 1)
+	if (day == 1)
 	{
 		character_index = rand() % 3;
 		passport_index = rand() % 3;
 	}
-	else if (day == 2)
+	else if (day >= 2)
 	{
 		character_index = rand() % 5;
 		passport_index = rand() % 5;
 	}
-	else
+	/*else
 	{
 		character_index = rand() % 7;
 		passport_index = rand() % 7;
 	}*/
 
-	character_index = rand() % 3;
-	passport_index = rand() % 3;
+	/*character_index = rand() % 3;
+	passport_index = rand() % 3;*/
 
 	if (character_index == passport_index)
 	{
