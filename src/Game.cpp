@@ -399,49 +399,37 @@ void Game::newAnimal()
 	rejected = false;
 	last_character = character_index;
 
-	if(rand()%3 == 1 && day > 1)
+	while (character_index == last_character)
 	{
-		if (day == 2)
+		if (rand() % 3 == 1 && day > 1)
 		{
-			while (character_index == last_character)
+			if (day == 2)
 			{
 				character_index = rand() % 5;
 			}
-		}
-		else
-		{
-			while (character_index == last_character)
+			else
 			{
 				character_index = rand() % 6;
 			}
+			passport_index = character_index;
 		}
-		passport_index = character_index;
-	}
 
-	else {
-		if (day == 1)
-		{
-			while (character_index == last_character) 
+		else {
+			if (day == 1)
 			{
 				character_index = rand() % 3;
+				passport_index = rand() % 3;
 			}
-			passport_index = rand() % 3;
-		}
-		else if (day == 2)
-		{
-			while (character_index == last_character)
+			else if (day == 2)
 			{
 				character_index = rand() % 5;
+				passport_index = rand() % 5;
 			}
-			passport_index = rand() % 5;
-		}
-		else if (day >= 3)
-		{
-			while (character_index == last_character)
+			else if (day >= 3)
 			{
 				character_index = rand() % 7;
+				passport_index = rand() % 7;
 			}
-			passport_index = rand() % 7;
 		}
 	}
 
