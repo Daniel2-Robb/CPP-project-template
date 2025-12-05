@@ -408,11 +408,11 @@ void Game::newAnimal()
 		character_index = rand() % 5;
 		passport_index = rand() % 5;
 	}
-	/*else
+	else
 	{
 		character_index = rand() % 7;
 		passport_index = rand() % 7;
-	}*/
+	}
 
 	/*character_index = rand() % 3;
 	passport_index = rand() % 3;*/

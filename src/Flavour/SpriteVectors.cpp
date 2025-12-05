@@ -25,9 +25,9 @@ void SpriteVectors::init()
 	characters[3].loadFromFile("../Data/Images/Custom sprites/kane.png");
 	characters.emplace_back();
 	characters[4].loadFromFile("../Data/Images/Custom sprites/cillian.png");
-	/*characters.emplace_back();
-	characters[5].loadFromFile("../Data/Images/Custom sprites/");
 	characters.emplace_back();
+	characters[5].loadFromFile("../Data/Images/Custom sprites/halford.jpg");
+	/*characters.emplace_back();
 	characters[6].loadFromFile("../Data/Images/Custom sprites/");*/
 
 	//initialise variants
@@ -41,9 +41,9 @@ void SpriteVectors::init()
 	variants[3].loadFromFile("../Data/Images/Custom sprites/kane.png");
 	variants.emplace_back();
 	variants[4].loadFromFile("../Data/Images/Custom sprites/cillian.png");
-	/*variants.emplace_back();
-	variants[5].loadFromFile("../Data/Images/Custom sprites/");
 	variants.emplace_back();
+	variants[5].loadFromFile("../Data/Images/Custom sprites/halford.jpg");
+	/*variants.emplace_back();
 	variants[6].loadFromFile("../Data/Images/Custom sprites/");*/
 
 	//initialise passports
@@ -57,8 +57,8 @@ void SpriteVectors::init()
 	passports[3].loadFromFile("../Data/Images/Custom sprites/kane passport.png");
 	passports.emplace_back();
 	passports[4].loadFromFile("../Data/Images/Custom sprites/cillian passport.png");
-	/*passports.emplace_back();
-	passports[5].loadFromFile("../Data/Images/Custom sprites/");
 	passports.emplace_back();
+	passports[5].loadFromFile("../Data/Images/Custom sprites/halford passport.png");
+	/*passports.emplace_back();
 	passports[6].loadFromFile("../Data/Images/Custom sprites/");*/
 }
