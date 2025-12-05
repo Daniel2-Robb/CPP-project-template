@@ -15,6 +15,7 @@ public:
 	
 
 	std::vector<sf::Texture> characters;
+	std::vector<sf::Texture> variants;
 	std::vector<sf::Texture> passports;
 };
 

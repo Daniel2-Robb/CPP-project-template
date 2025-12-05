@@ -416,7 +416,7 @@ void Game::newAnimal()
 
 	/*character_index = rand() % 3;
 	passport_index = rand() % 3;*/
-
+		
 	if (character_index == passport_index)
 	{
 		divine = true;
@@ -428,15 +428,40 @@ void Game::newAnimal()
 		std::cout << "Evil \n";
 	}
 
-	character.initialiseSprite(sprite_vectors.characters[character_index]);
-	//std::cout << "Character loaded\n";
-	character.getSprite()->setScale(1.8, 1.8);
-	character.getSprite()->setPosition(window.getSize().x / 12, window.getSize().y / 12);
+	switch (menu.hard)
+	{
+	case (true):
+		variant = rand() % 2;
+
+		if (variant == 0)
+		{
+			character.initialiseSprite(sprite_vectors.characters[character_index]);
+			//std::cout << "Character loaded\n";
+			character.getSprite()->setScale(1.8, 1.8);
+			character.getSprite()->setPosition(window.getSize().x / 12, window.getSize().y / 12);
+		}
+		else if (variant == 1)
+			character.initialiseSprite(sprite_vectors.variants[character_index]);
+		std::cout << "Variant\n";
+		character.getSprite()->setScale(1.8, 1.8);
+		character.getSprite()->setPosition(window.getSize().x / 12, window.getSize().y / 12);
+
+		break;
+	case (false):
+		character.initialiseSprite(sprite_vectors.characters[character_index]);
+		//std::cout << "Character loaded\n";
+		character.getSprite()->setScale(1.8, 1.8);
+		character.getSprite()->setPosition(window.getSize().x / 12, window.getSize().y / 12);
+		break;
+	}
+
 
 	passport.initialiseSprite(sprite_vectors.passports[passport_index]);
 	//std::cout << "Passport loaded\n";
 	passport.getSprite()->setScale(0.6, 0.6);
 	passport.getSprite()->setPosition(window.getSize().x / 2, window.getSize().y / 3);
+
+	
 }
 
 void Game::dragSprite(std::unique_ptr<sf::Sprite>& sprite)
@@ -492,7 +517,7 @@ void Game::freshDay()
 {
 	day++;
 	score = 0;
-	quota += 5;
+	quota += 3;
 	time_remaining = default_timer;
 
 }

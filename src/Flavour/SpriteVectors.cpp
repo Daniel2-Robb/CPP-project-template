@@ -11,6 +11,7 @@ SpriteVectors::~SpriteVectors()
 void SpriteVectors::init()
 {
 	characters.reserve(8);
+	variants.reserve(8);
 	passports.reserve(8);
 
 	//initialise characters
@@ -29,6 +30,21 @@ void SpriteVectors::init()
 	characters.emplace_back();
 	characters[6].loadFromFile("../Data/Images/Custom sprites/");*/
 
+	//initialise variants
+	variants.emplace_back();
+	variants[0].loadFromFile("../Data/Images/Critter Crossing Customs/elephant.png");
+	variants.emplace_back();
+	variants[1].loadFromFile("../Data/Images/Critter Crossing Customs/moose.png");
+	variants.emplace_back();
+	variants[2].loadFromFile("../Data/Images/Critter Crossing Customs/penguin.png");
+	variants.emplace_back();
+	variants[3].loadFromFile("../Data/Images/Custom sprites/kane.png");
+	variants.emplace_back();
+	variants[4].loadFromFile("../Data/Images/Custom sprites/cillian.png");
+	/*variants.emplace_back();
+	variants[5].loadFromFile("../Data/Images/Custom sprites/");
+	variants.emplace_back();
+	variants[6].loadFromFile("../Data/Images/Custom sprites/");*/
 
 	//initialise passports
 	passports.emplace_back();

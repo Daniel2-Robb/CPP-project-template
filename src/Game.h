@@ -88,6 +88,7 @@ class Game
   int score = 0;
   int quota = 0;
   int day = 0;
+  int variant = 0;
 
   sf::Music intro;
   bool music_playing = false;
