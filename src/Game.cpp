@@ -511,6 +511,13 @@ void Game::returnPassport()
 			if ((accepted && divine) || (rejected && evil))
 			{
 				score++;
+				total_score++;
+
+				if (!menu.hard)
+				{
+					time_remaining += 2;
+					timer_text.setString(std::to_string(time_remaining));
+				}
 
 				quota_text.setString(std::to_string(score) + " / " + std::to_string(quota));
 
