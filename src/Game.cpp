@@ -436,15 +436,17 @@ void Game::newAnimal()
 		if (variant == 0)
 		{
 			character.initialiseSprite(sprite_vectors.characters[character_index]);
-			//std::cout << "Character loaded\n";
+			std::cout << "Reg\n";
 			character.getSprite()->setScale(1.8, 1.8);
 			character.getSprite()->setPosition(window.getSize().x / 12, window.getSize().y / 12);
 		}
 		else if (variant == 1)
+		{
 			character.initialiseSprite(sprite_vectors.variants[character_index]);
-		std::cout << "Variant\n";
-		character.getSprite()->setScale(1.8, 1.8);
-		character.getSprite()->setPosition(window.getSize().x / 12, window.getSize().y / 12);
+			std::cout << "Variant\n";
+			character.getSprite()->setScale(1.8, 1.8);
+			character.getSprite()->setPosition(window.getSize().x / 12, window.getSize().y / 12);
+		}
 
 		break;
 	case (false):
