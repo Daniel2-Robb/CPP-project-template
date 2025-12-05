@@ -22,6 +22,11 @@ void Menu::init(sf::RenderWindow& window)
 		std::cout << "could not load second font\n";
 	}
 
+	if (!font3.loadFromFile("../Data/Fonts/OpenSans-Bold.ttf"))
+	{
+		std::cout << "could not load third font\n";
+	}
+
 	menu_text.setString("The Last in Line");
 	menu_text.setFont(font1);
 	menu_text.setCharacterSize(80);
@@ -39,6 +44,12 @@ void Menu::init(sf::RenderWindow& window)
 	hard_text.setCharacterSize(40);
 	hard_text.setFillColor(sf::Color(255, 0, 0, 255));
 	hard_text.setPosition(window.getSize().x / 2 - menu_text.getGlobalBounds().width / 2, 400);
+
+	warning_text.setString("In Hard mode, the characters may look different to their passport. They have been  on holiday, after all...");
+	warning_text.setFont(font3);
+	warning_text.setCharacterSize(20);
+	warning_text.setFillColor(sf::Color(255, 255, 255, 255));
+	warning_text.setPosition(10, window.getSize().y - warning_text.getGlobalBounds().height - 25);
 
 	exit_text.setString("Exit");
 	exit_text.setFont(font2);
@@ -119,6 +130,11 @@ void Menu::render(sf::RenderWindow & window)
 	window.draw(start_text);
 	window.draw(hard_text);
 	window.draw(exit_text);
+
+	if (hard)
+	{
+		window.draw(warning_text);
+	}
 }
 
 sf::String Menu::mouseReleased(sf::RenderWindow& window, sf::Event event)

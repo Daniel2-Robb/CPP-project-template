@@ -13,3 +13,5 @@ Rob Halford (Source: https://ultimateclassicrock.com/rob-halford-surgery/)
 Replace Kane with Joe Kuken?
 
 Sound sources: Freesound.org
+
+Character resize scale: 147 * 128

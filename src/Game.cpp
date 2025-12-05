@@ -167,7 +167,7 @@ void Game::render()
 		break;
 
 	case GAMEEND:
-		game_over.render(window, score);
+		game_over.render(window, total_score);
 		break;
 	}
 
@@ -256,8 +256,8 @@ void Game::mouseReleased(sf::Event event)
 	case MENU:
 		if (menu.mouseReleased(window, event) == "start")
 		{
-			newAnimal();
 			freshDay();
+			newAnimal();
 			quota_text.setString(std::to_string(score) + " / " + std::to_string(quota));
 			state = DAYSTART;
 		}
@@ -349,8 +349,8 @@ void Game::keyReleased(sf::Event event)
 		case MENU:
 			if (menu.choice == Menu::START)
 			{
-				newAnimal();
 				freshDay();
+				newAnimal();
 				quota_text.setString(std::to_string(score) + " / " + std::to_string(quota));
 				state = DAYSTART;
 				break;
@@ -398,20 +398,35 @@ void Game::newAnimal()
 	accepted = false;
 	rejected = false;
 
-	if (day == 1)
+	if(rand()%4 == 1 && day > 1)
 	{
-		character_index = rand() % 3;
-		passport_index = rand() % 3;
+		if (day == 2)
+		{
+			character_index = rand() % 5;
+		}
+		else
+		{
+			character_index = rand() % 6;
+		}
+		passport_index = character_index;
 	}
-	else if (day >= 2)
-	{
-		character_index = rand() % 5;
-		passport_index = rand() % 5;
-	}
-	else
-	{
-		character_index = rand() % 7;
-		passport_index = rand() % 7;
+
+	else {
+		if (day == 1)
+		{
+			character_index = rand() % 3;
+			passport_index = rand() % 3;
+		}
+		else if (day == 2)
+		{
+			character_index = rand() % 5;
+			passport_index = rand() % 5;
+		}
+		else
+		{
+			character_index = rand() % 6;
+			passport_index = rand() % 6;
+		}
 	}
 
 	/*character_index = rand() % 3;

@@ -86,6 +86,7 @@ class Game
   int character_index = 0;
   int passport_index = 0;
   int score = 0;
+  int total_score = 0;
   int quota = 0;
   int day = 0;
   int variant = 0;

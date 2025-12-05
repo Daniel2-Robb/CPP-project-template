@@ -17,9 +17,12 @@ public:
 
 	sf::Font font1;
 	sf::Font font2;
+	sf::Font font3;
+
 	sf::Text menu_text;
 	sf::Text start_text;
 	sf::Text hard_text;
+	sf::Text warning_text;
 	sf::Text exit_text;
 
 	bool hard = false;
