@@ -397,16 +397,23 @@ void Game::newAnimal()
 	judgement_cast = false;
 	accepted = false;
 	rejected = false;
+	last_character = character_index;
 
-	if(rand()%4 == 1 && day > 1)
+	if(rand()%3 == 1 && day > 1)
 	{
 		if (day == 2)
 		{
-			character_index = rand() % 5;
+			while (character_index == last_character)
+			{
+				character_index = rand() % 5;
+			}
 		}
 		else
 		{
-			character_index = rand() % 6;
+			while (character_index == last_character)
+			{
+				character_index = rand() % 6;
+			}
 		}
 		passport_index = character_index;
 	}
@@ -414,18 +421,27 @@ void Game::newAnimal()
 	else {
 		if (day == 1)
 		{
-			character_index = rand() % 3;
+			while (character_index == last_character) 
+			{
+				character_index = rand() % 3;
+			}
 			passport_index = rand() % 3;
 		}
 		else if (day == 2)
 		{
-			character_index = rand() % 5;
+			while (character_index == last_character)
+			{
+				character_index = rand() % 5;
+			}
 			passport_index = rand() % 5;
 		}
-		else
+		else if (day >= 3)
 		{
-			character_index = rand() % 6;
-			passport_index = rand() % 6;
+			while (character_index == last_character)
+			{
+				character_index = rand() % 7;
+			}
+			passport_index = rand() % 7;
 		}
 	}
 
@@ -451,16 +467,18 @@ void Game::newAnimal()
 		if (variant == 0)
 		{
 			character.initialiseSprite(sprite_vectors.characters[character_index]);
-			std::cout << "Reg\n";
+			//std::cout << "Reg\n";
 			character.getSprite()->setScale(1.8, 1.8);
-			character.getSprite()->setPosition(window.getSize().x / 12, window.getSize().y / 12);
+			character.getSprite()->setPosition(window.getSize().x / 4 - character.getSprite()->getGlobalBounds().width / 2, 
+				window.getSize().y / 2 - character.getSprite()->getGlobalBounds().height / 2);
 		}
 		else if (variant == 1)
 		{
 			character.initialiseSprite(sprite_vectors.variants[character_index]);
-			std::cout << "Variant\n";
+			//std::cout << "Variant\n";
 			character.getSprite()->setScale(1.8, 1.8);
-			character.getSprite()->setPosition(window.getSize().x / 12, window.getSize().y / 12);
+			character.getSprite()->setPosition(window.getSize().x / 4 - character.getSprite()->getGlobalBounds().width / 2,
+				window.getSize().y / 2 - character.getSprite()->getGlobalBounds().height / 2);
 		}
 
 		break;
@@ -468,7 +486,8 @@ void Game::newAnimal()
 		character.initialiseSprite(sprite_vectors.characters[character_index]);
 		//std::cout << "Character loaded\n";
 		character.getSprite()->setScale(1.8, 1.8);
-		character.getSprite()->setPosition(window.getSize().x / 12, window.getSize().y / 12);
+		character.getSprite()->setPosition(window.getSize().x / 4 - character.getSprite()->getGlobalBounds().width / 2,
+			window.getSize().y / 2 - character.getSprite()->getGlobalBounds().height / 2);
 		break;
 	}
 
@@ -515,7 +534,7 @@ void Game::returnPassport()
 
 				if (!menu.hard)
 				{
-					time_remaining += 2;
+					time_remaining += 1;
 					timer_text.setString(std::to_string(time_remaining));
 				}
 

@@ -85,6 +85,7 @@ class Game
 
   int character_index = 0;
   int passport_index = 0;
+  int last_character = 0;
   int score = 0;
   int total_score = 0;
   int quota = 0;

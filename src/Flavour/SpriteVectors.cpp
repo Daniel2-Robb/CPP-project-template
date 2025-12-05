@@ -27,8 +27,8 @@ void SpriteVectors::init()
 	characters[4].loadFromFile("../Data/Images/Custom sprites/cillian.png");
 	characters.emplace_back();
 	characters[5].loadFromFile("../Data/Images/Custom sprites/halford.png");
-	/*characters.emplace_back();
-	characters[6].loadFromFile("../Data/Images/Custom sprites/");*/
+	characters.emplace_back();
+	characters[6].loadFromFile("../data/images/custom sprites/eddie.png");
 
 	//initialise variants
 	variants.emplace_back();
@@ -43,8 +43,8 @@ void SpriteVectors::init()
 	variants[4].loadFromFile("../Data/Images/Custom sprites/cillianVariant.png");
 	variants.emplace_back();
 	variants[5].loadFromFile("../Data/Images/Custom sprites/halford.png");
-	/*variants.emplace_back();
-	variants[6].loadFromFile("../Data/Images/Custom sprites/");*/
+	variants.emplace_back();
+	variants[6].loadFromFile("../Data/Images/Custom sprites/eddieVariant.png");
 
 	//initialise passports
 	passports.emplace_back();
@@ -59,6 +59,6 @@ void SpriteVectors::init()
 	passports[4].loadFromFile("../Data/Images/Custom sprites/cillianPassport.png");
 	passports.emplace_back();
 	passports[5].loadFromFile("../Data/Images/Custom sprites/halfordPassport.png");
-	/*passports.emplace_back();
-	passports[6].loadFromFile("../Data/Images/Custom sprites/");*/
+	passports.emplace_back();
+	passports[6].loadFromFile("../Data/Images/Custom sprites/eddiePassport.png");
 }

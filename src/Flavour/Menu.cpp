@@ -45,9 +45,9 @@ void Menu::init(sf::RenderWindow& window)
 	hard_text.setFillColor(sf::Color(255, 0, 0, 255));
 	hard_text.setPosition(window.getSize().x / 2 - menu_text.getGlobalBounds().width / 2, 400);
 
-	warning_text.setString("In Hard mode, the characters may look different to their passport. They have been  on holiday, after all...");
+	warning_text.setString("In Hard mode, the characters may look different to their passport. They didn't expect the world to end, after all...");
 	warning_text.setFont(font3);
-	warning_text.setCharacterSize(20);
+	warning_text.setCharacterSize(18);
 	warning_text.setFillColor(sf::Color(255, 255, 255, 255));
 	warning_text.setPosition(10, window.getSize().y - warning_text.getGlobalBounds().height - 25);
 
