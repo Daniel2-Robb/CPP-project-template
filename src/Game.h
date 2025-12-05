@@ -83,13 +83,14 @@ class Game
   bool accepted = false;
   bool rejected = false;
 
+  int max_characters = 0;
   int character_index = 0;
   int passport_index = 0;
   int last_character = 0;
   int score = 0;
   int total_score = 0;
   int quota = 0;
-  int day = 0;
+  int day = 3;
   int variant = 0;
 
   sf::Music intro;

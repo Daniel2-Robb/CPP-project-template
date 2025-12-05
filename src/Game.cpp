@@ -22,6 +22,8 @@ bool Game::init()
 	game_over.init(window);
 	new_day.init(window);
 		
+	max_characters = sprite_vectors.characters.size();
+	std::cout << std::to_string(max_characters) << "\n";
 			
 	//initialise background
 	background_texture.loadFromFile("../Data/WhackaMole Worksheet/background.png");
@@ -374,19 +376,25 @@ void Game::keyReleased(sf::Event event)
 			}
 			break;
 
-		case GAMEEND:
-			state = MENU;
-			break;
-		case DAYSTART:
-			state = GAMEPLAY;
-			break;
-		case DAYEND:
-			freshDay();
-			quota_text.setString(std::to_string(score) + " / " + std::to_string(quota));
-			state = DAYSTART;
-			break;
+		
 		}
+
 	}
+	switch (state)
+	{
+	case GAMEEND:
+		state = MENU;
+		break;
+	case DAYSTART:
+		state = GAMEPLAY;
+		break;
+	case DAYEND:
+		freshDay();
+		quota_text.setString(std::to_string(score) + " / " + std::to_string(quota));
+		state = DAYSTART;
+		break;
+	}
+
 }
 
 
@@ -403,39 +411,32 @@ void Game::newAnimal()
 	{
 		if (rand() % 3 == 1 && day > 1)
 		{
-			if (day == 2)
+			if (2 * day <= max_characters)
 			{
-				character_index = rand() % 5;
+				character_index = rand() % ((2 * day) + 1);
 			}
 			else
 			{
-				character_index = rand() % 6;
+				character_index = rand() % max_characters;
 			}
 			passport_index = character_index;
 		}
 
-		else {
-			if (day == 1)
+		else 
+		{
+			if ((2 * day) + 1 <= max_characters)
 			{
-				character_index = rand() % 3;
-				passport_index = rand() % 3;
+				character_index = rand() % ((2 * day) + 1);
+				passport_index = rand() % ((2 * day) + 1);
 			}
-			else if (day == 2)
+			else
 			{
-				character_index = rand() % 5;
-				passport_index = rand() % 5;
-			}
-			else if (day >= 3)
-			{
-				character_index = rand() % 7;
-				passport_index = rand() % 7;
+				character_index = rand() % max_characters;
+				passport_index = rand() % max_characters;
 			}
 		}
 	}
-
-	/*character_index = rand() % 3;
-	passport_index = rand() % 3;*/
-		
+			
 	if (character_index == passport_index)
 	{
 		divine = true;
