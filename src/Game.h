@@ -7,6 +7,7 @@
 #include <SFML/System/Clock.hpp>
 #include "GameObject.h"
 #include "Flavour/Menu.h"
+#include "Flavour/SpriteVectors.h"
 #include "Flavour/GameOver.h"
 #include "Flavour/NewDay.h"
 
@@ -58,12 +59,6 @@ class Game
   GameObject character;
   GameObject passport;
 
-
- 
-  std::vector<sf::Texture> characters;
-  std::vector<sf::Texture> passports;
-
-
   std::unique_ptr<sf::Sprite> dragged = std::make_unique<sf::Sprite>();
 
   sf::Vector2i click;
@@ -76,6 +71,7 @@ class Game
   sf::Font font;
 
   Menu menu;
+  SpriteVectors sprite_vectors;
   GameOver game_over;
   NewDay new_day;
 

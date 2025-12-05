@@ -19,11 +19,16 @@ public:
 	sf::Font font2;
 	sf::Text menu_text;
 	sf::Text start_text;
+	sf::Text hard_text;
 	sf::Text exit_text;
+
+	bool hard = false;
+
 
 	enum MenuSelection
 	{
 		START,
+		HARD,
 		EXIT
 	};
 	MenuSelection choice = START;

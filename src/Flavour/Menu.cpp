@@ -34,11 +34,17 @@ void Menu::init(sf::RenderWindow& window)
 	start_text.setFillColor(sf::Color(255, 255, 255, 255));
 	start_text.setPosition(window.getSize().x / 2 - menu_text.getGlobalBounds().width / 2, 300);
 
+	hard_text.setString("Hard Mode");
+	hard_text.setFont(font2);
+	hard_text.setCharacterSize(40);
+	hard_text.setFillColor(sf::Color(255, 0, 0, 255));
+	hard_text.setPosition(window.getSize().x / 2 - menu_text.getGlobalBounds().width / 2, 400);
+
 	exit_text.setString("Exit");
 	exit_text.setFont(font2);
 	exit_text.setCharacterSize(40);
 	exit_text.setFillColor(sf::Color(255, 255, 255, 255));
-	exit_text.setPosition(window.getSize().x / 2 - menu_text.getGlobalBounds().width / 2, 400);
+	exit_text.setPosition(window.getSize().x / 2 - menu_text.getGlobalBounds().width / 2, 500);
 
 }
 
@@ -49,12 +55,19 @@ void Menu::update()
 	{
 	case (START):
 		start_text.setString("> Start");
+		hard_text.setString("Hard Mode");
+		exit_text.setString("Exit");
+		break;
+
+	case (HARD):
+		start_text.setString("Start");
+		hard_text.setString("> Hard Mode");
 		exit_text.setString("Exit");
 		break;
 
 	case (EXIT):
 		start_text.setString("Start");
-		//options_text.setString("Options");
+		hard_text.setString("Hard Mode");
 		exit_text.setString("> Exit");
 		break;
 	}
@@ -70,8 +83,12 @@ void Menu::option_select(sf::Event event)
 			choice = EXIT;
 			break;
 
-		case(EXIT):
+		case (HARD):
 			choice = START;
+			break;
+
+		case(EXIT):
+			choice = HARD;
 			break;
 		}
 
@@ -81,6 +98,10 @@ void Menu::option_select(sf::Event event)
 		switch (choice)
 		{
 		case(START):
+			choice = HARD;
+			break;
+
+		case(HARD):
 			choice = EXIT;
 			break;
 
@@ -96,6 +117,7 @@ void Menu::render(sf::RenderWindow & window)
 	window.clear(sf::Color(100, 0, 255, 255));
 	window.draw(menu_text);
 	window.draw(start_text);
+	window.draw(hard_text);
 	window.draw(exit_text);
 }
 
@@ -107,6 +129,10 @@ sf::String Menu::mouseReleased(sf::RenderWindow& window, sf::Event event)
 	if (start_text.getGlobalBounds().contains(clickf))
 	{
 		return "start";
+	}
+	else if (hard_text.getGlobalBounds().contains(clickf))
+	{		
+		return "hard";
 	}
 	else if (exit_text.getGlobalBounds().contains(clickf))
 	{

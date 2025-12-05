@@ -18,49 +18,16 @@ bool Game::init()
 	state = MENU;
 
 	menu.init(window);
+	sprite_vectors.init();
 	game_over.init(window);
 	new_day.init(window);
-
-	characters.reserve(8);
-	passports.reserve(8);
+		
 			
 	//initialise background
 	background_texture.loadFromFile("../Data/WhackaMole Worksheet/background.png");
 	background.initialiseSprite(background_texture);
 
-	//initialise characters
-	characters.emplace_back();
-	characters[0].loadFromFile("../Data/Images/Critter Crossing Customs/elephant.png");
-	characters.emplace_back();
-	characters[1].loadFromFile("../Data/Images/Critter Crossing Customs/moose.png");
-	characters.emplace_back();
-	characters[2].loadFromFile("../Data/Images/Critter Crossing Customs/penguin.png");
-	characters.emplace_back();
-	characters[3].loadFromFile("../Data/Images/Custom sprites/kane.png");
-	characters.emplace_back();
-	characters[4].loadFromFile("../Data/Images/Custom sprites/cillian.png");
-	/*characters.emplace_back();
-	characters[5].loadFromFile("../Data/Images/Custom sprites/");
-	characters.emplace_back();
-	characters[6].loadFromFile("../Data/Images/Custom sprites/");*/
-
-
-	//initialise passports
-	passports.emplace_back();
-	passports[0].loadFromFile("../Data/Images/Critter Crossing Customs/elephant passport.png");
-	passports.emplace_back();
-	passports[1].loadFromFile("../Data/Images/Critter Crossing Customs/moose passport.png");
-	passports.emplace_back();
-	passports[2].loadFromFile("../Data/Images/Critter Crossing Customs/penguin passport.png");
-	passports.emplace_back();
-	passports[3].loadFromFile("../Data/Images/Custom sprites/kane passport.png");
-	passports.emplace_back();
-	passports[4].loadFromFile("../Data/Images/Custom sprites/cillian passport.png");
-	/*passports.emplace_back();
-	passports[5].loadFromFile("../Data/Images/Custom sprites/");
-	passports.emplace_back();
-	passports[6].loadFromFile("../Data/Images/Custom sprites/");*/
-
+	
 	//initialise judgements
 	accept_button_texture.loadFromFile("../Data/Images/Custom sprites/divine button.png");
 	accept_button.initialiseSprite(accept_button_texture);
@@ -294,6 +261,20 @@ void Game::mouseReleased(sf::Event event)
 			quota_text.setString(std::to_string(score) + " / " + std::to_string(quota));
 			state = DAYSTART;
 		}
+		else if (menu.mouseReleased(window, event) == "hard")
+		{
+			if (menu.hard)
+			{
+				menu.hard_text.setFillColor(sf::Color(255, 0, 0, 255));
+				std::cout << "not hard\n";
+			}
+			else if (!menu.hard)
+			{
+				menu.hard_text.setFillColor(sf::Color(0, 255, 0, 255));
+				std::cout << "hard\n";
+			}
+			menu.hard = !menu.hard;
+		}
 		else if (menu.mouseReleased(window, event) == "quit")
 		{
 			window.close();
@@ -360,34 +341,51 @@ void Game::keyReleased(sf::Event event)
 		window.close();
 	}
 
-	switch (state)
+	if (event.key.code == sf::Keyboard::Enter)
 	{
-	case MENU:
-		if (menu.choice == Menu::START)
+
+		switch (state)
 		{
-			newAnimal();
+		case MENU:
+			if (menu.choice == Menu::START)
+			{
+				newAnimal();
+				freshDay();
+				quota_text.setString(std::to_string(score) + " / " + std::to_string(quota));
+				state = DAYSTART;
+				break;
+			}
+			else if (menu.choice == Menu::HARD)
+			{
+				if (menu.hard)
+				{
+					menu.hard_text.setFillColor(sf::Color(255, 0, 0, 255));
+					menu.hard = false;
+				}
+				else if (!menu.hard)
+				{
+					menu.hard_text.setFillColor(sf::Color(0, 255, 0, 255));
+					menu.hard = true;
+				}
+			}
+			else if (menu.choice == Menu::EXIT)
+			{
+				window.close();
+			}
+			break;
+
+		case GAMEEND:
+			state = MENU;
+			break;
+		case DAYSTART:
+			state = GAMEPLAY;
+			break;
+		case DAYEND:
 			freshDay();
 			quota_text.setString(std::to_string(score) + " / " + std::to_string(quota));
 			state = DAYSTART;
 			break;
 		}
-		else if (menu.choice == Menu::EXIT)
-		{
-			window.close();
-		}
-		break;
-
-	case GAMEEND:
-		state = MENU;
-		break;
-	case DAYSTART:
-		state = GAMEPLAY;
-		break;
-	case DAYEND:
-		freshDay();
-		quota_text.setString(std::to_string(score) + " / " + std::to_string(quota));
-		state = DAYSTART;
-		break;
 	}
 }
 
@@ -430,12 +428,12 @@ void Game::newAnimal()
 		std::cout << "Evil \n";
 	}
 
-	character.initialiseSprite(characters[character_index]);
+	character.initialiseSprite(sprite_vectors.characters[character_index]);
 	//std::cout << "Character loaded\n";
 	character.getSprite()->setScale(1.8, 1.8);
 	character.getSprite()->setPosition(window.getSize().x / 12, window.getSize().y / 12);
 
-	passport.initialiseSprite(passports[passport_index]);
+	passport.initialiseSprite(sprite_vectors.passports[passport_index]);
 	//std::cout << "Passport loaded\n";
 	passport.getSprite()->setScale(0.6, 0.6);
 	passport.getSprite()->setPosition(window.getSize().x / 2, window.getSize().y / 3);
