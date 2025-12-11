@@ -23,7 +23,7 @@ bool Game::init()
 	new_day.init(window);
 		
 	max_characters = sprite_vectors.characters.size();
-	std::cout << std::to_string(max_characters) << "\n";
+	//std::cout << std::to_string(max_characters) << "\n";
 			
 	//initialise background
 	background_texture.loadFromFile("../Data/WhackaMole Worksheet/background.png");
@@ -268,12 +268,12 @@ void Game::mouseReleased(sf::Event event)
 			if (menu.hard)
 			{
 				menu.hard_text.setFillColor(sf::Color(255, 0, 0, 255));
-				std::cout << "not hard\n";
+				//std::cout << "not hard\n";
 			}
 			else if (!menu.hard)
 			{
 				menu.hard_text.setFillColor(sf::Color(0, 255, 0, 255));
-				std::cout << "hard\n";
+				//std::cout << "hard\n";
 			}
 			menu.hard = !menu.hard;
 		}
@@ -440,12 +440,12 @@ void Game::newAnimal()
 	if (character_index == passport_index)
 	{
 		divine = true;
-		std::cout << "Divine \n";
+		//std::cout << "Divine \n";
 	}
 	else
 	{
 		evil = true;
-		std::cout << "Evil \n";
+		//std::cout << "Evil \n";
 	}
 
 	switch (menu.hard)
