@@ -9,8 +9,10 @@ int main()
             << std::endl;
 
   // create window and set up
-  sf::RenderWindow window(sf::VideoMode(1080, 720), "Platform game");
+  sf::RenderWindow window(sf::VideoMode(1080, 720), "Sole Survivor");
   window.setFramerateLimit(60);
+
+  sf::Mouse mouse;
 
   //initialise an instance of the game class
   Game game(window);
@@ -37,6 +39,13 @@ int main()
     //'process inputs' element of the game loop
     while (window.pollEvent(event))
     {
+        //moouse burron pressed, call game's click functions
+        if (event.type == sf::Event::MouseButtonPressed)
+        {
+            sf::Vector2f cursor_location = static_cast<sf::Vector2f>(mouse.getPosition(window));
+            game.mouseClicked(event, cursor_location);
+        }
+
       // "close requested" event: we close the window
       if (event.type == sf::Event::Closed)
         window.close();
@@ -48,12 +57,7 @@ int main()
         game.keyPressed(event);
     }
 
-    if (event.type == sf::Event::MouseButtonPressed)
-    {
-        game.mouseClicked(event);
-    }
-
-
+    
     //'update' element of the game loop
     game.update(dt);
 

@@ -3,6 +3,7 @@
 #define PLATFORMER_GAME_H
 
 #include <SFML/Graphics.hpp>
+#include "GameObject.h"
 
 class Game
 {
@@ -12,7 +13,7 @@ class Game
   bool init();
   void update(float dt);
   void render();
-  void mouseClicked(sf::Event event);
+  void mouseClicked(sf::Event event, sf::Vector2f cursor_location);
   void keyPressed(sf::Event event);
 
  private:
@@ -24,8 +25,10 @@ class Game
 	  GAMEPLAY,
 	  GAMEEND
   }; 
-  GameState state = MENU;
+  GameState state = GAMEPLAY;
 
+  GameObject player;
+  sf::Texture player_texture;
 
 };
 
